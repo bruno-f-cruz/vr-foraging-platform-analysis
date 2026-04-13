@@ -1,0 +1,13 @@
+[project]
+name = "vr-foraging-platform-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "aind-behavior-vr-foraging-nwb@git+https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging.Nwb@0b5f3a7de135d7e4bb4f7e0da6bda51d8382706c"
+]
