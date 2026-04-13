@@ -28,13 +28,13 @@ def check_aws_cli_exists() -> None:
             stderr=subprocess.DEVNULL,
         )
     except (subprocess.CalledProcessError, FileNotFoundError):
-        raise RuntimeError("AWS CLI is not installed or not found in PATH. Please install it to proceed.")
+        raise RuntimeError(
+            "AWS CLI is not installed or not found in PATH. Please install it to proceed."
+        )
 
 
 def get_all_records_from_s3_catalog() -> Dict[str, Any]:
-    docdb_api_client = MetadataDbClient(
-        host=API_GATEWAY_HOST,version="v2"
-    )
+    docdb_api_client = MetadataDbClient(host=API_GATEWAY_HOST, version="v2")
 
     projection = {
         "name": 1,
@@ -44,12 +44,12 @@ def get_all_records_from_s3_catalog() -> Dict[str, Any]:
         "subject.date_of_birth": 1,
     }
     records = docdb_api_client.retrieve_docdb_records(
-            filter_query={
-                "subject.subject_id": {"$eq": "828424"}
-                , "data_description.data_level": {"$eq": "raw"}
-            },
-            projection=projection,
-        )
+        filter_query={
+            "subject.subject_id": {"$eq": "828424"},
+            "data_description.data_level": {"$eq": "raw"},
+        },
+        projection=projection,
+    )
     # records = docdb_api_client.fetch_records_by_filter_list(
     #         filter_key="name",
     #         filter_values=[session for session in sessions],
@@ -57,11 +57,15 @@ def get_all_records_from_s3_catalog() -> Dict[str, Any]:
     #     )
 
     logging.info("Retrieved %d records", len(records))
-    logging.debug("Records: %s", json.dumps(records, indent=4, sort_keys=True, default=str))
+    logging.debug(
+        "Records: %s", json.dumps(records, indent=4, sort_keys=True, default=str)
+    )
     return records
 
 
-def sync_s3_catalog_records_to_local(records: Dict[str, Any], output_root: Path) -> None:
+def sync_s3_catalog_records_to_local(
+    records: Dict[str, Any], output_root: Path
+) -> None:
     check_aws_cli_exists()
     uris: list[str] = []
     for record in records:
@@ -207,10 +211,10 @@ def download_s3_asset(s3_uri: str, output_root: Path) -> None:
         stderr=subprocess.DEVNULL,
     )
 
+
 if __name__ == "__main__":
     records = get_all_records_from_s3_catalog()
     for record in records:
         s3_uris = extract_s3_locations(record)
         for s3_uri in s3_uris:
             download_s3_asset(s3_uri, output_root=Path("./data"))
-    

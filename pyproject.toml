@@ -9,6 +9,6 @@ dependencies = [
     "matplotlib>=3.10.8",
     "numpy>=2.4.4",
     "pandas>=3.0.2",
-    "aind-behavior-vr-foraging-nwb@git+https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging.Nwb@0b5f3a7de135d7e4bb4f7e0da6bda51d8382706c",
+    "aind-behavior-vr-foraging-nwb@git+https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging.Nwb@257129e91cefb5373fba5744bc433060c4c2290e",
     "ruff",
 ]
